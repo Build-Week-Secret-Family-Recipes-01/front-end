@@ -8,6 +8,7 @@ import PageTwo from "./components/page_two";
 import Header from "./components/header";
 import Logout from "./components/logout";
 import Home from './components/home';
+import Signup from "./components/signup";
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
         <Login />
       </Route>
 
+      <Route path="/signup">
+        <Signup />
+      </Route>
+
       <Route path="/page_one">
         <PageOne />
       </Route>
@@ -33,7 +38,7 @@ function App() {
       <Route path="/logout">
         <Logout />
       </Route>
-      
+
     </div>
   );
 }
