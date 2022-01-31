@@ -1,10 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   return(
-    <h1>
-      Pleasse login!!!!!!
-    </h1>
+    <div>
+          <h1>
+              Pleasse login or create a new account!!!!!!
+          </h1>
+          <Link to="/signup">Don't have an account?</Link><br/>
+    </div>
   )
 }
 
