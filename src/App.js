@@ -1,45 +1,27 @@
-import React from "react";
-import "./App.css";
-import { Route } from "react-router-dom";
+import React from 'react';
+import './App.css';
 
-import Login from "./components/login";
-import PageOne from "./components/page_one";
-import PageTwo from "./components/page_two";
-import Header from "./components/header";
-import Logout from "./components/logout";
-import Home from './components/home';
-import Signup from "./components/signup";
+import './assets/search-background.jpg';
 
-import PrivateRoute from "./components/private_route";
-
-function App() {
-  return (
-    <div className="App">
-      <Header/>
-
-      <Route exact path="/">
-        <Home />
-      </Route>
-
-      <Route path="/login">
-        <Login />
-      </Route>
-
-      <Route path="/signup">
-        <Signup />
-      </Route>
-
-      <PrivateRoute path="/page_one" component={PageOne}/>
-
-      <PrivateRoute path="/page_two" component={PageTwo}/>
-
-
-      <Route path="/logout">
-        <Logout />
-      </Route>
-
-    </div>
-  );
+const App = () => {
+  const loggedIn = true;
+    return (
+        <section className='app'>
+            {
+              loggedIn ?
+              <div>
+                <div className='search-container'>
+                  <p>Find your secret recipes.</p>
+                  <form>
+                    <input className='search-bar' type='text' placeholder='Find recipe' />
+                  </form>
+                </div>
+                <div>Content</div>
+              </div> :
+              <div>Please Log in</div>
+            }
+        </section>
+    );
 }
 
 export default App;
