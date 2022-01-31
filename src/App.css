@@ -1,35 +1,38 @@
-.app {
-  text-align: center;
+.search-container {
+    height: auto;
+    background-image: url('./assets/search-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    padding: 80px;
+    margin-bottom: 20px;
 }
 
-.search-container{
-  height: auto;
-  background-image: url('./assets/search-background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  color: white;
-  padding: 80px;
+.search-container p {
+    margin: 0 0 70px;
+    font-size: 30px;
+    font-weight: 600;
+    text-shadow: 0px 0px 7px #000000;
 }
 
-.search-container p{
-  margin: 0 0 70px;
-  font-size: 30px;
-  font-weight: 600;
-  text-shadow: 0px 0px 7px #000000;
+.search-bar {
+    width: 90vw;
+    max-width: 600px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-.search-bar{
-  width: 90vw;
-  max-width: 600px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: rgb(255, 255, 255);
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+.recipe-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
