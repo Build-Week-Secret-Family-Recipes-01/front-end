@@ -1,32 +1,32 @@
-header{
+header {
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.header-left a{
+.header-left a {
     font-weight: bold;
     text-decoration: none;
     color: black;
 }
 
-.header-left a:hover{
+.header-left a:hover {
     text-decoration: underline;
 }
 
-.header-right{
+.header-right {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.header-right a{
+.header-right a {
     margin-left: 10px;
     text-decoration: none;
     color: black;
 }
 
-.header-right a:hover{
+.header-right a:hover {
     text-decoration: underline;
 }

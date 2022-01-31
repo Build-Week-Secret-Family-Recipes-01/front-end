@@ -15,22 +15,21 @@ import Signup from './components/signup';
 import PrivateRoute from './components/private_route';
 
 ReactDOM.render(
-  <React.StrictMode>
-     <Router>
-                <Header />
-                
-                <Switch>
-                  <Route exact path='/' component={App} />
+    <React.StrictMode>
+        <Router>
+            <Header />
+
+            <Switch>
+                <Route exact path='/' component={App} />
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={Signup} />
                 <PrivateRoute path='/page_one' component={PageOne} />
                 <PrivateRoute path='/page_two' component={PageTwo} />
                 <Route path='/logout' component={Logout} />
-                </Switch>
-                
-            </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
+            </Switch>
+        </Router>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
