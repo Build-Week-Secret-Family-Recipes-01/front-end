@@ -6,7 +6,8 @@ const Header = () => {
       <div>
           <h1>BloomTech Secret Recipes</h1>
           <div>
-              <Link to="/">Login</Link><br/>
+              <Link to="/">Home</Link><br/>
+              <Link to="login">Login</Link><br/>
               <Link to="page_one">Page One</Link><br/>
               <Link to="page_two">Page Two</Link><br/>
               <Link to="logout">Logout</Link><br/>
