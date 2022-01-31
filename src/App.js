@@ -10,6 +10,8 @@ import Logout from "./components/logout";
 import Home from './components/home';
 import Signup from "./components/signup";
 
+import PrivateRoute from "./components/private_route";
+
 function App() {
   return (
     <div className="App">
@@ -27,13 +29,10 @@ function App() {
         <Signup />
       </Route>
 
-      <Route path="/page_one">
-        <PageOne />
-      </Route>
+      <PrivateRoute path="/page_one" component={PageOne}/>
 
-      <Route path="/page_two">
-        <PageTwo />
-      </Route>
+      <PrivateRoute path="/page_two" component={PageTwo}/>
+
 
       <Route path="/logout">
         <Logout />
