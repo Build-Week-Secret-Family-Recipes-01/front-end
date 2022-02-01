@@ -48,9 +48,9 @@ const Signup = () => {
                         <input id='username' type='text' name='username' placeholder='Username' value={creds.username} onChange={handleChange} />
                         Password:
                         <input id='password' type='password' name='password' placeholder='Password' value={creds.password} onChange={handleChange} />
-                        <p id='error'>{error.errorMessage}</p>
                         <button id='submit'>Create Account</button>
                     </form>
+                    <p id='error'>{error.errorMessage}</p>
                     <p>
                         Already have an account? <Link to='/login'>Login here!</Link>
                     </p>

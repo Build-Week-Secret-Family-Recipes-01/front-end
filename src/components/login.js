@@ -50,9 +50,9 @@ const Login = () => {
                     </form>
                     <p id='error'>{error.errorMessage}</p>
                 </div>
-                <p>Don't have an account? <Link to='/signup'>Create one here!</Link></p>
-                
-                <br />
+                <p>
+                    Don't have an account? <Link to='/signup'>Create one here!</Link>
+                </p>
             </div>
         </div>
     );
