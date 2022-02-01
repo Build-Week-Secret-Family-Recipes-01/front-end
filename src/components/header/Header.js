@@ -12,7 +12,6 @@ const Header = () => {
           <div className='header-right'>
               <Link to="/">Home</Link>
               <Link to="login">Login</Link>
-              <Link to="#">Create an Account</Link>
               <Link to="page_one">Page One</Link>
               <Link to="page_two">Page Two</Link>
               <Link to="logout">Logout</Link>

@@ -27,8 +27,9 @@ const Login = () => {
         e.preventDefault();
         axios.post("https://secret-family-recipes-01.herokuapp.com/api/auth/login", creds)
             .then(resp =>{
+                console.log(resp.data);
                 localStorage.setItem('token', resp.data.token)
-                push('/page_one');
+                push('/');
             })
             .catch(err=>{
                 console.log(err);
@@ -39,12 +40,8 @@ const Login = () => {
 
   return(
     <div>
-          <h1>
-              Pleasse login or create a new account!!!!!!
-          </h1>
           <h2>Please enter your account information.</h2>
             <div>
-                <h1>Login</h1>
                 <form onSubmit={handleSubmit}>
                     Username:
                     <input
@@ -68,7 +65,8 @@ const Login = () => {
                 </form>
                 <p id='error'>{error.errorMessage}</p>
             </div>
-          <Link to="/signup">Don't have an account?</Link><br/>
+            <p>Don't have an account?</p>
+          <Link to="/signup">Create one here!</Link><br/>
     </div>
   )
 }
