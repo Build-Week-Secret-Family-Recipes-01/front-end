@@ -6,7 +6,7 @@ const Logout = () => {
   const {push} = useHistory();
     useEffect(()=>{
         const token = localStorage.getItem('token');
-        axios.post('','*',{
+        axios.get('https://secret-family-recipes-01.herokuapp.com/api/auth/logout',{
             headers: {
                 authorization: token
             }
@@ -19,6 +19,7 @@ const Logout = () => {
         .catch(err=>{
             console.log(err);
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])       
     return(<div></div>);
 }
