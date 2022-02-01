@@ -67,8 +67,8 @@ const App = () => {
                     </div>
                     <div className='recipe-wrapper'>
                         {
-                            recipes.map(item => {
-                                return <RecipeItem recipe={item} />;
+                            recipes.map((item, index) => {
+                                return <RecipeItem key={index} recipe={item} />;
                             })
                         }
                     </div>
