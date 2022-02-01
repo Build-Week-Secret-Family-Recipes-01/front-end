@@ -27,7 +27,6 @@ const Login = () => {
         e.preventDefault();
         axios.post("https://secret-family-recipes-01.herokuapp.com/api/auth/login", creds)
             .then(resp =>{
-                console.log(resp.data);
                 localStorage.setItem('token', resp.data.token)
                 push('/');
             })
