@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const Signup = () => {
   const {push} = useHistory();
-  const baseURL = "https://secret-family-recipes-01.herokuapp.com/api/auth/login";
+  const baseURL = "http://secret-family-recipes-01.herokuapp.com";
 
   const [creds, setCreds] = useState({
       username: '',
@@ -25,7 +25,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${baseURL}/user`, creds)
+      .post(`${baseURL}/api/auth/register`, creds)
       .then(resp =>{
         setCreds(resp.data);
         push('/login');
