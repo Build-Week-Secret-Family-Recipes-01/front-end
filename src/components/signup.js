@@ -38,33 +38,36 @@ const Signup = () => {
 
 
   return(
-    <div className='signup-page-container'>
-      <h1>Create a new account below</h1>
-      <div>
-        <form onSubmit={handleSubmit}>
-          Username:
-            <input
-              id='username'
-              type='text'
-              name='username'
-              placeholder='Username'
-              value={creds.username}
-              onChange={handleChange}
-            />
-          <br/>
-          Password:
-            <input
-                id='password'
-                type="password"
-                name="password"
-                placeholder='Password'
-                value={creds.password}
+    <div className='top-of-page'>
+      <div className='signup-page-container'>
+        <h1>Create a new account</h1>
+        <h3>Enter your desired username and password below, then click Submit</h3>
+        <div>
+          <form onSubmit={handleSubmit}>
+            Username:
+              <input
+                id='username'
+                type='text'
+                name='username'
+                placeholder='Username'
+                value={creds.username}
                 onChange={handleChange}
-            />
+              />
             <br/>
-        <button id='submit'>Submit</button>
-        </form>
-        <p id='error'>{error.errorMessage}</p>
+            Password:
+              <input
+                  id='password'
+                  type="password"
+                  name="password"
+                  placeholder='Password'
+                  value={creds.password}
+                  onChange={handleChange}
+              />
+              <br/>
+          <button id='submit'>Submit</button>
+          </form>
+          <p id='error'>{error.errorMessage}</p>
+        </div>
       </div>
     </div>
   )
