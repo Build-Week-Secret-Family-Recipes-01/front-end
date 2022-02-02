@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 
 import RecipeItem from './components/recipeItem/RecipeItem';
 
 const App = () => {
-    const loggedIn = true;
+
+    const [auth, setAuth] = useState(false)
+
+    useEffect(()=>{
+        const token = localStorage.getItem('token');
+        if (token === 'undefined') {
+            setAuth(true)
+        }
+    },[])
+
+
     const recipes = [
         {
             user_id: 1,
@@ -65,7 +75,7 @@ const App = () => {
     
     return (
         <section className='app'>
-            {loggedIn ? (
+            {auth ? (
                 <div>
                     <div className='search-container'>
                         <p>Find your secret recipes.</p>
