@@ -4,34 +4,40 @@ import './RecipeItem.css';
 
 const RecipeItem = (props) => {
     const { recipe } = props;
+
     return (
         <div className='recipe-container'>
-            <p className='recipe-title'>{recipe.title}</p>
-            <p className='rounded-text'>
-                <strong>Category: </strong>
-                {recipe.category}
-            </p>
-            <p className='rounded-text'>
-                <strong>Serves: </strong>
-                {recipe.servings}
-            </p>
-            <p>Ingredients:</p>
-            <ul>
-                {recipe.ingredients.map((ingredient) => {
-                    return <li>{ingredient}</li>;
-                })}
-            </ul>
-
-            <p>Instructions:</p>
-            <ol>
-                {recipe.instructions.map((instructions) => {
-                    return <li>{instructions}</li>;
-                })}
-            </ol>
-            <p className='rounded-text'>
+            <div className='recipe-top'>
+                <div className='recipe-title'>
+                    {recipe.title}
+                </div>
+                <div className='recipe-categories'>
+                    {recipe.categories.map((item, index) => {
+                        return <p key={index} className='rounded-text'>{item}</p>;
+                    })}
+                </div>
+            </div>
+            <div className='recipe-bottom'>
                 <strong>Source: </strong>
                 {recipe.source}
-            </p>
+                <br />
+
+                <strong>Serves: </strong>
+                {recipe.servings}
+                <p><strong>Ingredients:</strong></p>
+                <ul>
+                    {recipe.ingredients.map((ingredient, index) => {
+                        return <li key={index}>{ingredient}</li>;
+                    })}
+                </ul>
+
+                <p><strong>Instructions:</strong></p>
+                <ol>
+                    {recipe.instructions.map((instructions, index) => {
+                        return <li key={index}>{instructions}</li>;
+                    })}
+                </ol>
+            </div>
         </div>
     );
 };

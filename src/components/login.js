@@ -43,10 +43,10 @@ const Login = () => {
                 <div>
                     <form onSubmit={handleSubmit}>
                         Username:
-                        <input id='username' type='text' name='username' value={creds.username} onChange={handleChange} />
+                        <input id='username' type='text' name='username' placeholder='Username' value={creds.username} onChange={handleChange} />
                         Password:
-                        <input id='password' type='password' name='password' value={creds.password} onChange={handleChange} />
-                        <button id='submit'>Submit</button>
+                        <input id='password' type='password' name='password' placeholder='Password' value={creds.password} onChange={handleChange} />
+                        <button id='submit'>Login</button>
                     </form>
                     <p id='error'>{error.errorMessage}</p>
                 </div>
