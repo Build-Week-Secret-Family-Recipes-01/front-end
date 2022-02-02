@@ -32,7 +32,7 @@ const Login = () => {
             })
             .catch((err) => {
                 console.log(err);
-                setError({ errorMessage: 'YOU GUESSED WRONG' });
+                setError({ errorMessage: 'INVALID USERNAME/PASSWORD' });
             });
     };
 
