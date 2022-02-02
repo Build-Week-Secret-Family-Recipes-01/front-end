@@ -46,7 +46,7 @@ const Login = () => {
                         <input id='username' type='text' name='username' value={creds.username} onChange={handleChange} />
                         Password:
                         <input id='password' type='password' name='password' value={creds.password} onChange={handleChange} />
-                        <button id='submit'>Submit</button>
+                        <button id='submit'>Login</button>
                     </form>
                     <p id='error'>{error.errorMessage}</p>
                 </div>
