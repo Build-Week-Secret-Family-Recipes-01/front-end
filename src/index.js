@@ -12,6 +12,7 @@ import Header from './components/header/Header';
 import Logout from './components/logout';
 import Signup from './components/signup';
 
+
 import PrivateRoute from './components/private_route';
 
 ReactDOM.render(
