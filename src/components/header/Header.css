@@ -9,7 +9,7 @@ header {
 .header-left a {
     font-weight: bold;
     text-decoration: none;
-    color: black;
+    color: inherit;
 }
 
 .header-left a:hover {
@@ -25,7 +25,7 @@ header {
 .header-right a {
     margin-left: 10px;
     text-decoration: none;
-    color: black;
+    color: inherit;
 }
 
 .header-right a:hover {
