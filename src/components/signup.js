@@ -4,10 +4,9 @@ import axios from 'axios';
 
 const Signup = () => {
     const { push } = useHistory();
-    const baseURL = 'http://secret-family-recipes-01.herokuapp.com';
+    const baseURL = 'https://secret-family-recipes-01.herokuapp.com';
 
     const [creds, setCreds] = useState({
-        user_id: Date.now() + Math.random(),
         username: '',
         password: '',
     });
