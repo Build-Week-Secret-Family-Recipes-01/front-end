@@ -40,22 +40,22 @@
 /* SignUp page styling */
 
 .top-of-page{
-    height: auto;
+    height: calc(100vh - 61px);
     background-image: url('./assets/search-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: top;
     flex-direction: column;
     color: black;
     padding: 80px;
-    margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 .signup-page-container{
-    width: 95%;
+    width: auto;
     padding: 1%;
     margin: 15px 1%;
     background: #ffffff;
@@ -72,4 +72,26 @@
 .signup-page-container h3{
     font-size: 15px;
     color: #818589;
+}
+
+.signup-page-container input{
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.signup-page-container button{
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.signup-page-container #error{
+    color: crimson;
 }
