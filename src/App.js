@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import './App.css';
 
 import RecipeItem from './components/recipeItem/RecipeItem';
 import axios from 'axios';
 
 const App = () => {
+    const { push } = useHistory()
     const [auth, setAuth] = useState(false);
 
     useEffect(()=>{
@@ -14,11 +16,10 @@ const App = () => {
         };
 
         axios
-            .get(`https://secret-family-recipes-01.herokuapp.com/api/recipe/${auth}`)
+            .get(`https://secret-family-recipes-01.herokuapp.com/api/recipes`)
             .then(resp => {
-                console.log('Response: ', resp.data);
                 setRecipes(resp.data);
-                console.log(recipes);
+                console.log(resp.data);
             })
             .catch(err => {
                 console.log(err);
@@ -26,7 +27,7 @@ const App = () => {
     }, []);
     
     const [recipes, setRecipes] = useState([]);
-    const [searchTerm, setSearchTerm] = useState(recipes);
+    // const [searchTerm, setSearchTerm] = useState(recipes);
 
     
 
@@ -36,7 +37,7 @@ const App = () => {
             return item.title.toLowerCase().includes(term);
         });
         
-        setSearchTerm(filtered);
+        // setSearchTerm(filtered);
     };
     
     return (
@@ -55,17 +56,19 @@ const App = () => {
                                 placeholder='Start typing to find recipe'
                             />
                         </form>
+                        <div className='tab-link'><Link to='/'>All Recipes</Link></div>
+                        <div className='tab-link'><Link to='page_one'>Your Recipes</Link></div>
                     </div>
                     <div className='recipe-wrapper'>
                         {
-                            searchTerm.map((item, index) => {
+                            recipes.map((item, index) => {
                                 return <RecipeItem key={index} recipe={item} />;
                             })
                         }
                     </div>
                 </div>
             ) : (
-                <div>Please Log in</div>
+                push('/login')
             )}
         </section>
     );

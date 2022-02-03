@@ -42,6 +42,10 @@
     justify-content: center;
 }
 
+.tab-link{
+    background-color: red;
+}
+
 
 
 /* SignUp page styling */
