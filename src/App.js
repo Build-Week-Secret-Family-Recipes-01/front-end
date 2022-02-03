@@ -19,7 +19,6 @@ const App = () => {
             .get(`https://secret-family-recipes-01.herokuapp.com/api/recipes`)
             .then(resp => {
                 setRecipes(resp.data);
-                console.log(resp.data);
             })
             .catch(err => {
                 console.log(err);

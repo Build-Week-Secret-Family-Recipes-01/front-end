@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const PageOne = () => {
     const [auth, setAuth] = useState(false);
-    const userID = localStorage.getItem('user_id');
+    const user_id = localStorage.getItem('user_id');
 
     useEffect(()=>{
         const token = localStorage.getItem('token');
@@ -16,10 +16,9 @@ const PageOne = () => {
         };
 
         axios
-            .get(`https://secret-family-recipes-01.herokuapp.com/api/users/:${userID}/recipes`)
+            .get(`https://secret-family-recipes-01.herokuapp.com/api/users/${user_id}/recipes`)
             .then(resp => {
                 setRecipes(resp.data);
-                console.log(resp.data);
             })
             .catch(err => {
                 console.log(err);
