@@ -16,7 +16,7 @@ const PageOne = () => {
         };
 
         axios
-            .get(`https://secret-family-recipes-01.herokuapp.com/api/users/${user_id}/recipes`)
+            .get(`https://secret-family-recipes-01.herokuapp.com/api/users/${user_id}/recipes`, { headers: { Authorization: token}})
             .then(resp => {
                 setRecipes(resp.data);
             })
