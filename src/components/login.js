@@ -28,7 +28,8 @@ const Login = () => {
             .post('https://secret-family-recipes-01.herokuapp.com/api/auth/login', creds)
             .then((resp) => {
                 localStorage.setItem('token', resp.data.token);
-                push('/');
+                // push('/');
+                console.log(resp);
             })
             .catch((err) => {
                 console.log(err);
