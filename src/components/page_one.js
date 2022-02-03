@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './../App.css';
 
 import RecipeItem from './recipeItem/RecipeItem';
 import axios from 'axios';
 
 const PageOne = () => {
-  const params = useParams();
-  console.log('params:', params);
     const [auth, setAuth] = useState(false);
-    const { userID } = useParams();
+    const userID = localStorage.getItem('user_id');
 
     useEffect(()=>{
         const token = localStorage.getItem('token');
@@ -18,7 +16,7 @@ const PageOne = () => {
         };
 
         axios
-            .get(`https://secret-family-recipes-01.herokuapp.com/api/users/${userID}/recipes`)
+            .get(`https://secret-family-recipes-01.herokuapp.com/api/users/:${userID}/recipes`)
             .then(resp => {
                 setRecipes(resp.data);
                 console.log(resp.data);
