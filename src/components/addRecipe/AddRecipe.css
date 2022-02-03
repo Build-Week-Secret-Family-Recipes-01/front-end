@@ -1,0 +1,14 @@
+.add-ingredient{
+    float: right;
+    cursor: pointer;
+}
+
+.quantity{
+    width: 19% !important;
+    margin-right: 1%;
+}
+
+.ingredient{
+    width: 79% !important;
+    margin-right: 1%;
+}

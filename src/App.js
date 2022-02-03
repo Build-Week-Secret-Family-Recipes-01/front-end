@@ -2,72 +2,38 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 
 import RecipeItem from './components/recipeItem/RecipeItem';
+import axios from 'axios';
 
 const App = () => {
-
-    const [auth, setAuth] = useState(false)
+    const [auth, setAuth] = useState(false);
 
     useEffect(()=>{
         const token = localStorage.getItem('token');
         if (token === 'undefined') {
             setAuth(true)
-        }
-    },[])
+        };
 
-
-    const recipes = [
-        {
-            user_id: 1,
-            title: 'Cake',
-            categories: ['pizza', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        },
-        {
-            id: 2,
-            title: 'Gummy Bears',
-            categories: ['cake', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        },
-        {
-            id: 3,
-            title: 'Steak',
-            categories: ['cake', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        },
-        {
-            id: 4,
-            title: 'Pasta',
-            categories: ['italian', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        },
-        {
-            id: 5,
-            title: 'Bread',
-            categories: ['cake', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        }
-    ];
+        axios
+            .get(`https://secret-family-recipes-01.herokuapp.com/api/recipe/${auth}`)
+            .then(resp => {
+                console.log('Response: ', resp.data);
+                setRecipes(resp.data);
+                console.log(recipes);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, []);
+    
+    const [recipes, setRecipes] = useState([]);
     const [searchTerm, setSearchTerm] = useState(recipes);
+
+    
 
     const handleSearchChange = (e) => {
         const term = e.target.value.toLowerCase();
         const filtered = recipes.filter(item => {
-            return item.title.toLowerCase().includes(term) || item.categories.find(item => item.toLowerCase().includes(term));
+            return item.title.toLowerCase().includes(term);
         });
         
         setSearchTerm(filtered);
