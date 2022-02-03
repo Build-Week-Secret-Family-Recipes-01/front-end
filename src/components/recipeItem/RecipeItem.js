@@ -11,7 +11,7 @@ const RecipeItem = (props) => {
                 <div className='recipe-title'>
                     {recipe.title}
                 </div>
-                <div className='recipe-categories'>
+                {/* <div className='recipe-categories'>
                     {recipe.categories.map((item, index) => {
                         return <p key={index} className='rounded-text'>{item}</p>;
                     })}
@@ -36,7 +36,7 @@ const RecipeItem = (props) => {
                     {recipe.instructions.map((instructions, index) => {
                         return <li key={index}>{instructions}</li>;
                     })}
-                </ol>
+                </ol> */}
             </div>
         </div>
     );

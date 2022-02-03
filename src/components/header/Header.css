@@ -31,3 +31,17 @@ header {
 .header-right a:hover {
     text-decoration: underline;
 }
+
+.add-recipe{
+    background-color: #6A858A;
+    color: white;
+    font-weight: 600;
+    padding: 7px 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.add-recipe a:hover{
+    text-decoration: none;
+}
