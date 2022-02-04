@@ -1,15 +1,13 @@
-import React, {useEffect} from 'react';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import React from "react";
+import { useHistory } from "react-router-dom";
 
 const Logout = () => {
-  const {push} = useHistory();
-            localStorage.removeItem('token');
-            push('/');
+  const { push } = useHistory();
+  localStorage.removeItem("token");
+  localStorage.removeItem("user_id");
+  push("/");
 
-        
-    // eslint-disable-next-line react-hooks/exhaustive-deps      
-    return(<div></div>);
-}
+  return <div></div>;
+};
 
 export default Logout;
