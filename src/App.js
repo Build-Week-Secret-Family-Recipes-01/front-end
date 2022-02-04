@@ -36,7 +36,7 @@ const App = () => {
       })
       .then(allResponses => {
         const allRecipes = allResponses.map(resp => resp.data);
-        console.log(allRecipes)
+        // console.log(allRecipes)
         setRecipes(allRecipes)
         setSearchTerm(allRecipes)
       })
