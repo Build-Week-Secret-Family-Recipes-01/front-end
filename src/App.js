@@ -96,11 +96,12 @@ const App = () => {
           </div>
         </div>
       ) : (
-        <div> 
-          <h2>Welcome To BloomTech Secret Recipes! </h2>
-          <p>Discover favorite recipes from your friends at BloomTech and share some secrets of your own!</p>
-          <p>Log In To Start Your Culinary Masterpiece</p> 
-          
+        <div className="home-message"> 
+          <div className="home-message-text">
+          <h2>Welcome!</h2>
+          <p><em>Discover favorite recipes from your friends at BloomTech and share some secrets of your own!</em></p>
+          <a href='./login'><em>Log In To Start Your Culinary Masterpiece</em></a>
+          </div>
         </div>
       )}
     </section>
