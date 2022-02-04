@@ -1,98 +1,262 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import axios from 'axios';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
-import './AddRecipe.css';
+import "./AddRecipe.css";
+import useRecipes from "../../hooks/useRecipes";
 
-const AddRecipe = () => {
-    const { push } = useHistory();
+const AddRecipe = (props) => {
+  const { push } = useHistory();
+  const [recipes, setRecipes, searchTerm, setSearchTerm] = useRecipes([]);
 
-    const [initialRecipe, setInitialRecipe] = useState({
-        title: '',
-        image: '',
-        ingredients: [
-            {
-                quantity: '',
-                ingredient: ''
-            },
-            {
-                quantity: '',
-                ingredient: ''
-            },
-            {
-                quantity: '',
-                ingredient: ''
-            },
-            {
-                quantity: '',
-                ingredient: ''
-            },
-            {
-                quantity: '',
-                ingredient: ''
-            },
-            {
-                quantity: '',
-                ingredient: ''
-            },
-        ],
-        steps: ['', '', '', '', '', ''],
-        source: '',
+  const [recipe, setRecipe] = useState({
+    user_id: 1,
+    title: "",
+    source: "",
+    description: "",
+    categories: [], // ["Vegetarian", "Lunch"],
+    steps: [], // { step_number: 1, step_text: "toast your bread" }, ...
+    ingredients: [], // { quantity: "2 slices", ingredient_name: "whole wheat bread" }, ...
+  });
+
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    console.log(e);
+    setRecipe({
+      ...recipe,
+      [e.target.name]: e.target.value,
     });
+  };
 
-    const ingred = initialRecipe.ingredients
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("user_id");
+    const newRecipeData = { ...recipe, user_id: userId };
 
-    const [error, setError] = useState('');
+    console.log(recipe);
+    axios
+      .post(
+        `https://secret-family-recipes-01.herokuapp.com/api/recipes/`,
+        newRecipeData,
+        { headers: { Authorization: token } }
+      )
+      .then((res) => {
+        console.log(res);
+        setRecipes([...recipes, res.data]);
+        push(`/`);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError({errorMessage: err.toString()})
+      });
+  };
 
-    const handleChange = () => {};
+  const handleItemChange = (fieldName, i, e) => {
+    // console.log(e);
+    const newItem = {
+      ...recipe[fieldName][i],
+      [e.target.name]: e.target.value,
+    };
+    // console.log(newItem)
+    let newItems = recipe[fieldName];
+    newItems.splice(i, 1, newItem);
+    setRecipe({
+      ...recipe,
+      [fieldName]: newItems,
+    });
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const addItemClick = (fieldName, newItemCallback) => {
+    setRecipe({
+      ...recipe,
+      [fieldName]: [...recipe[fieldName], newItemCallback(recipe[fieldName])],
+    });
+  };
+
+  const removeItemClick = (fieldName, i) => {
+    let newItems = recipe[fieldName];
+    newItems.splice(i, 1);
+    setRecipe({
+      ...recipe,
+      [fieldName]: newItems,
+    });
+  };
+
+  function createIngredientsInputs() {
+    return recipe.ingredients.map((ingredient, i) => (
+      <div className="recipe-line" key={i}>
+        <input
+          className="ingredient"
+          type="text"
+          name="ingredient_name"
+          placeholder="Describe ingredient"
+          onChange={(args) => handleItemChange("ingredients", i, args)}
+          value={ingredient.ingredient_name}
+        />
+        <input
+          className="quantity"
+          type="number"
+          name="quantity"
+          placeholder="Quantity"
+          onChange={(args) => handleItemChange("ingredients", i, args)}
+          value={ingredient.quantity}
+        />
+        <div
+          className="recipe-button"
+          onClick={() => removeItemClick("ingredients", i)}
+        >
+          Remove
+        </div>
+      </div>
+    ));
+  }
+
+  function createStepsInputs() {
+    // { step_number: 1, step_text: "toast your bread" },
+    return recipe.steps.map((step, i) => (
+      <div className="recipe-line" key={i}>
+        <div className="recipe-line-number" name="step_number" value={i + 1}>
+          {i + 1}
+        </div>
+        <input
+          className="ingredient"
+          type="text"
+          name="step_text"
+          placeholder="Describe step"
+          onChange={(args) => handleItemChange("steps", i, args)}
+          value={step.step_text}
+        />
+        <div
+          className="recipe-button"
+          onClick={() => removeItemClick("steps", i)}
+        >
+          Remove
+        </div>
+      </div>
+    ));
+  }
+
+  function createCategoriesInputs() {
+    // ["Vegetarian", "Lunch"]
+    const handleChange = (fieldName, i, e) => {
+      // console.log(e);
+      const newItem = e.target.value;
+      // console.log(newItem);
+      let newItems = recipe[fieldName];
+      newItems.splice(i, 1, newItem);
+      setRecipe({
+        ...recipe,
+        [fieldName]: newItems,
+      });
     };
 
-    return (
-        <div className='top-of-page'>
-            <div className='signup-page-container'>
-                <h1>Add Recipe</h1>
-                <div>
-                    <form onSubmit={handleSubmit}>
-                        <strong>Recipe Title:</strong>
-                        <input id='title' type='text' name='title' placeholder='Recipe Title' onChange={handleChange} value={initialRecipe.title} />
-                        <strong>Image:</strong>
-                        <input id='image' type='file' name='image' placeholder='Image' onChange={handleChange} value={initialRecipe.image} />
-                        <strong>Ingredients:</strong><br />
-                            <input className='quantity' id='ingredients' type='text' name='ingredients' placeholder='Quantity' onChange={handleChange} value={ingred[0].quantity} />
-                            <input className='ingredient' id='ingredients' type='text' name='ingredients' placeholder='Ingredient 1' onChange={handleChange} value={ingred[0].ingredient} />
-                            <input className='quantity' id='ingredients' type='text' name='ingredients' placeholder='Quantity' onChange={handleChange} value={ingred[1].quantity} />
-                            <input className='ingredient' id='ingredients' type='text' name='ingredients' placeholder='Ingredient 2' onChange={handleChange} value={ingred[1].ingredient} />
-                            <input className='quantity' id='ingredients' type='text' name='ingredients' placeholder='Quantity' onChange={handleChange} value={ingred[2].quantity} />
-                            <input className='ingredient' id='ingredients' type='text' name='ingredients' placeholder='Ingredient 3' onChange={handleChange} value={ingred[2].ingredient} />
-                            <input className='quantity' id='ingredients' type='text' name='ingredients' placeholder='Quantity' onChange={handleChange} value={ingred[3].quantity} />
-                            <input className='ingredient' id='ingredients' type='text' name='ingredients' placeholder='Ingredient 4' onChange={handleChange} value={ingred[3].ingredient} />
-                            <input className='quantity' id='ingredients' type='text' name='ingredients' placeholder='Quantity' onChange={handleChange} value={ingred[4].quantity} />
-                            <input className='ingredient' id='ingredients' type='text' name='ingredients' placeholder='Ingredient 5' onChange={handleChange} value={ingred[4].ingredient} />
-                            <input className='quantity' id='ingredients' type='text' name='ingredients' placeholder='Quantity' onChange={handleChange} value={ingred[5].quantity} />
-                            <input className='ingredient' id='ingredients' type='text' name='ingredients' placeholder='Ingredient 6' onChange={handleChange} value={ingred[5].ingredient} />
-
-                        <strong>Steps:</strong>
-                        <input className='step' id='step' type='text' name='step' placeholder='Step 1' onChange={handleChange} value={initialRecipe.steps[0]} />
-                        <input className='step' id='step' type='text' name='step' placeholder='Step 2' onChange={handleChange} value={initialRecipe.steps[1]} />
-                        <input className='step' id='step' type='text' name='step' placeholder='Step 3' onChange={handleChange} value={initialRecipe.steps[2]} />
-                        <input className='step' id='step' type='text' name='step' placeholder='Step 4' onChange={handleChange} value={initialRecipe.steps[3]} />
-                        <input className='step' id='step' type='text' name='step' placeholder='Step 5' onChange={handleChange} value={initialRecipe.steps[4]} />
-                        <input className='step' id='step' type='text' name='step' placeholder='Step 6' onChange={handleChange} value={initialRecipe.steps[5]} />
-
-                        <strong>Source:</strong>
-                        <input id='source' type='text' name='source' placeholder='Source' onChange={handleChange} value={initialRecipe.source} />
-
-                        <button id='submit'>Add Recipe</button>
-                    </form>
-                    <p id='error'>{error.errorMessage}</p>
-                </div>
-            </div>
+    return recipe.categories.map((category, i) => (
+      <div className="recipe-line" key={i}>
+        <div className="recipe-line-number" name="number" value={i + 1}>
+          {i + 1}
         </div>
-    );
+        <input
+          className="ingredient"
+          type="text"
+          placeholder="Describe category"
+          onChange={(args) => handleChange("categories", i, args)}
+          value={category}
+        />
+        <div
+          className="recipe-button"
+          onClick={() => removeItemClick("categories", i)}
+        >
+          Remove
+        </div>
+      </div>
+    ));
+  }
+
+  return (
+    <div className="top-of-page">
+      <div className="signup-page-container">
+        <h1>Add Recipe</h1>
+        <div>
+          <form onSubmit={handleSubmit}>
+            <strong>Recipe Title:</strong>
+            <input
+              id="title"
+              type="text"
+              name="title"
+              placeholder="Recipe Title"
+              onChange={handleChange}
+              value={recipe.title}
+            />
+            <br />
+            <strong>Source:</strong>
+            <input
+              id="source"
+              type="text"
+              name="source"
+              placeholder="Source"
+              onChange={handleChange}
+              value={recipe.source}
+            />
+
+            <br />
+            <strong>Ingredients:</strong>
+            {createIngredientsInputs()}
+            <br />
+            <div
+              className="recipe-button"
+              onClick={() =>
+                addItemClick("ingredients", (items) => {
+                  return { quantity: 0, ingredient_name: "" };
+                })
+              }
+            >
+              Add Ingredient
+            </div>
+
+            <br />
+            <strong>Steps:</strong>
+            <br />
+            {createStepsInputs()}
+            <br />
+            <div
+              className="recipe-button"
+              onClick={() =>
+                addItemClick("steps", (items) => {
+                  return { step_number: items.length + 1, step_text: "" };
+                })
+              }
+            >
+              Add Step
+            </div>
+
+            <br />
+            <strong>Categories:</strong>
+            <br />
+            {createCategoriesInputs()}
+            <br />
+            <div
+              className="recipe-button"
+              onClick={() =>
+                addItemClick("categories", (items) => {
+                  return "";
+                })
+              }
+            >
+              Add Category
+            </div>
+
+            <br />
+            <br />
+            <button id="submit">Add Recipe</button>
+          </form>
+          <p id="error">{error.errorMessage}</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default AddRecipe;

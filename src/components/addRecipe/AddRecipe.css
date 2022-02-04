@@ -5,10 +5,12 @@
 
 .quantity{
     width: 19% !important;
-    margin-right: 1%;
+    margin-bottom: 0 !important;
+    margin-bottom: 1% !important;
 }
 
 .ingredient{
     width: 79% !important;
     margin-right: 1%;
+    margin-bottom: 1% !important;
 }

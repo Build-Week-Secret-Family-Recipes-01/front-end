@@ -15,7 +15,6 @@ const Header = () => {
               <Link to="page_one">Page One</Link>
               <Link to="page_two">Page Two</Link>
               <Link to="logout">Logout</Link>
-              <Link to='add'><div className='add-recipe'>Add Recipe</div></Link>
           </div>
       </header>
   );

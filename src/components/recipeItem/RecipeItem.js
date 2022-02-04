@@ -3,7 +3,7 @@ import React from 'react';
 import './RecipeItem.css';
 
 const RecipeItem = (props) => {
-    const { recipe, handleDelete } = props;
+    const { recipe, handleEdit, handleDelete } = props;
 
     return (
         <div className='recipe-container'>
@@ -37,8 +37,9 @@ const RecipeItem = (props) => {
                         return <li key={index}>{step.step_text}</li>;
                     })}
                 </ol>
-                <div>
-                    <button onClick={() => handleDelete(recipe.recipe_id)}>Delete</button>
+                <div className="recipe-buttons">
+                    <div className='recipe-button' onClick={() => handleEdit(recipe.recipe_id)}>Edit</div>
+                    <div className='recipe-button' onClick={() => handleDelete(recipe.recipe_id)}>Delete</div>
                 </div>
             </div>
         </div>

@@ -4,12 +4,12 @@ import "./App.css";
 
 import RecipeItem from "./components/recipeItem/RecipeItem";
 import axios from "axios";
+import useRecipes from "./hooks/useRecipes";
 
 const App = () => {
   const { push } = useHistory();
   const [auth, setAuth] = useState(false);
-  const [recipes, setRecipes] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(recipes);
+  const [recipes, setRecipes, searchTerm, setSearchTerm] = useRecipes([]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -36,9 +36,8 @@ const App = () => {
       })
       .then(allResponses => {
         const allRecipes = allResponses.map(resp => resp.data);
-        // console.log(allRecipes)
+        console.log(allRecipes)
         setRecipes(allRecipes)
-        setSearchTerm(allRecipes)
       })
       .catch((err) => {
         console.error(err);
@@ -55,10 +54,6 @@ const App = () => {
         console.log(res);
         const newState = recipes.filter(item=>(item.recipe_id !== recipeId));
         setRecipes(newState)
-        setSearchTerm(newState)
-        // st = recipis.filter()
-        // setRecipes(st)
-        // setSearchTerm(st)
       })
   }
 
@@ -88,6 +83,9 @@ const App = () => {
                 placeholder="Start typing to find recipe"
               />
             </form>
+          </div>
+          <div className="recipe-buttons">
+            <div className='recipe-button' onClick={() => push('add')}>Add Recipe</div>
           </div>
           <div className="recipe-wrapper">
             {searchTerm.map((item) => {

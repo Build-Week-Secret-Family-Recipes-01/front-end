@@ -32,7 +32,8 @@ header {
     text-decoration: underline;
 }
 
-.add-recipe{
+.recipe-button{
+    text-align: center;
     background-color: #6A858A;
     color: white;
     font-weight: 600;
@@ -40,8 +41,10 @@ header {
     margin-left: 10px;
     border-radius: 6px;
     cursor: pointer;
+    height: 32px;
+    line-height: 32px;
 }
 
-.add-recipe a:hover{
+.recipe-button a:hover{
     text-decoration: none;
 }
