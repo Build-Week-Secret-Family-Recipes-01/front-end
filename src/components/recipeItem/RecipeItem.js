@@ -12,7 +12,7 @@ const RecipeItem = (props) => {
                     {recipe.title}
                 </div>
                 <div className='recipe-categories'>
-                    {(recipe.categories || []).map((item, index) => {
+                    {recipe.categories.map((item, index) => {
                         return <p key={index} className='rounded-text'>{item}</p>;
                     })}
                 </div>
@@ -26,15 +26,15 @@ const RecipeItem = (props) => {
                 {recipe.servings}
                 <p><strong>Ingredients:</strong></p>
                 <ul>
-                    {(recipe.ingredients || []).map((ingredient, index) => {
-                        return <li key={index}>{ingredient}</li>;
+                    {recipe.ingredients.map((ingredient, index) => {
+                        return <li key={index}>{ingredient.ingredient_name} {ingredient.quantity}</li>;
                     })}
                 </ul>
 
                 <p><strong>Instructions:</strong></p>
                 <ol>
-                    {(recipe.instructions || []).map((instructions, index) => {
-                        return <li key={index}>{instructions}</li>;
+                    {recipe.steps.map((step, index) => {
+                        return <li key={index}>{step.step_text}</li>;
                     })}
                 </ol>
             </div>
