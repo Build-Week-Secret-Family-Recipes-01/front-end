@@ -98,7 +98,7 @@ const App = () => {
       ) : (
         <div className="home-message"> 
           <div className="home-message-text">
-          <h2>Welcome!</h2>
+          <h2><em>Welcome!</em></h2>
           <p><em>Discover favorite recipes from your friends at BloomTech and share some secrets of your own!</em></p>
           <a href='./login'><em>Log In To Start Your Culinary Masterpiece</em></a>
           </div>
