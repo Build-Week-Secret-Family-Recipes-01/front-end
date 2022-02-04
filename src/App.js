@@ -96,7 +96,12 @@ const App = () => {
           </div>
         </div>
       ) : (
-        <div> Something about this project </div>
+        <div> 
+          <h2>Welcome To BloomTech Secret Recipes! </h2>
+          <p>Discover favorite recipes from your friends at BloomTech and share some secrets of your own!</p>
+          <p>Log In To Start Your Culinary Masterpiece</p> 
+          
+        </div>
       )}
     </section>
   );
