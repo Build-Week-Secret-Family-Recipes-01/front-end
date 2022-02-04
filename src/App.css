@@ -119,3 +119,25 @@
 .signup-page-container a{
     color: inherit;
 }
+
+/* Home Page Styling */
+
+.app {
+    height: calc(100vh - 61px);
+    background-image: url('./assets/Home-Background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: top;
+    flex-direction: column;
+    padding: 80px;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
