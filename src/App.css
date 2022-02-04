@@ -128,7 +128,7 @@
 
 .app {
     height: calc(100vh - 61px);
-    background-image: url('./assets/home-background2.jpg');
+    background-image: url('./assets/Home-Background2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

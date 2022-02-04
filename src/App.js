@@ -53,7 +53,7 @@ const App = () => {
       })
       .then(res => {
         console.log(res);
-        const newState = recipes.filter(item=>(item.recipeId !== recipeId));
+        const newState = recipes.filter(item=>(item.recipe_id !== recipeId));
         setRecipes(newState)
         setSearchTerm(newState)
         // st = recipis.filter()
