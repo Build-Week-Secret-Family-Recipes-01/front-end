@@ -1,108 +1,105 @@
-import React, {useEffect, useState} from 'react';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import "./App.css";
 
-import RecipeItem from './components/recipeItem/RecipeItem';
+import RecipeItem from "./components/recipeItem/RecipeItem";
+import axios from "axios";
 
 const App = () => {
+  const { push } = useHistory();
+  const [auth, setAuth] = useState(false);
+  const [recipes, setRecipes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(recipes);
 
-    const [auth, setAuth] = useState(false)
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setAuth(true);
+    } else {
+      setAuth(false);
+    }
+  }, []);
 
-    useEffect(()=>{
-        const token = localStorage.getItem('token');
-        if (token === 'undefined') {
-            setAuth(true)
-        }
-    },[])
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    axios
+      .get(`https://secret-family-recipes-01.herokuapp.com/api/recipes`, {
+        headers: { Authorization: token }
+      })
+      .then(res => Object.values(res.data).map((x) => x.recipe_id))
+      .then(ids => {
+        const all = ids.map(id => axios
+          .get(
+            `https://secret-family-recipes-01.herokuapp.com/api/recipes/${id}`,
+            { headers: { Authorization: token } }
+          ));
+        return Promise.all(all)
+      })
+      .then(allResponses => {
+        const allRecipes = allResponses.map(resp => resp.data);
+        // console.log(allRecipes)
+        setRecipes(allRecipes)
+        setSearchTerm(allRecipes)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
+  const handleDelete = (recipeId) => {
+    const token = localStorage.getItem("token");
+    axios
+      .delete(`https://secret-family-recipes-01.herokuapp.com/api/recipes/${recipeId}`, {
+        headers: { Authorization: token }
+      })
+      .then(res => {
+        console.log(res);
+        const newState = recipes.filter(item=>(item.recipeId !== recipeId));
+        setRecipes(newState)
+        setSearchTerm(newState)
+        // st = recipis.filter()
+        // setRecipes(st)
+        // setSearchTerm(st)
+      })
+  }
 
-    const recipes = [
-        {
-            user_id: 1,
-            title: 'Cake',
-            categories: ['pizza', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        },
-        {
-            id: 2,
-            title: 'Gummy Bears',
-            categories: ['cake', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        },
-        {
-            id: 3,
-            title: 'Steak',
-            categories: ['cake', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        },
-        {
-            id: 4,
-            title: 'Pasta',
-            categories: ['italian', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        },
-        {
-            id: 5,
-            title: 'Bread',
-            categories: ['cake', 'category 2', 'category 3'],
-            source: 'Grandpa',
-            ingredients: ['2 cups flour', '2 eggs', '1 cup sugar'],
-            instructions: ['Preheat oven', 'mix ingredients', 'Bake at 225 degrees'],
-            servings: 4,
-        }
-    ];
-    const [searchTerm, setSearchTerm] = useState(recipes);
+  const handleSearchChange = (e) => {
+    e.preventDefault();
+    const term = e.target.value.toLowerCase();
+    const filtered = recipes.filter((item) => {
+      return item.title.toLowerCase().includes(term) || item.categories.map(c => c.toLowerCase()).includes(term);
+    });
 
-    const handleSearchChange = (e) => {
-        const term = e.target.value.toLowerCase();
-        const filtered = recipes.filter(item => {
-            return item.title.toLowerCase().includes(term) || item.categories.find(item => item.toLowerCase().includes(term));
-        });
-        
-        setSearchTerm(filtered);
-    };
-    
-    return (
-        <section className='app'>
-            {auth ? (
-                <div>
-                    <div className='search-container'>
-                        <p>Find your secret recipes.</p>
-                        <form>
-                            <input
-                                onChange={handleSearchChange}
-                                className='search-bar'
-                                type='text'
-                                name='search'
-                                id='search'
-                                placeholder='Start typing to find recipe'
-                            />
-                        </form>
-                    </div>
-                    <div className='recipe-wrapper'>
-                        {
-                            searchTerm.map((item, index) => {
-                                return <RecipeItem key={index} recipe={item} />;
-                            })
-                        }
-                    </div>
-                </div>
-            ) : (
-                <div>Please Log in</div>
-            )}
-        </section>
-    );
+    setSearchTerm(filtered);
+  };
+
+  return (
+    <section className="app">
+      {auth ? (
+        <div>
+          <div className="search-container">
+            <p>Find your secret recipes.</p>
+            <form>
+              <input
+                onChange={handleSearchChange}
+                className="search-bar"
+                type="text"
+                name="search"
+                id="search"
+                placeholder="Start typing to find recipe"
+              />
+            </form>
+          </div>
+          <div className="recipe-wrapper">
+            {searchTerm.map((item) => {
+              return <RecipeItem key={item.recipe_id} recipe={item} handleDelete={handleDelete} />;
+            })}
+          </div>
+        </div>
+      ) : (
+        <div> Something about this project </div>
+      )}
+    </section>
+  );
 };
 
 export default App;

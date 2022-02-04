@@ -11,6 +11,7 @@ import PageTwo from './components/page_two';
 import Header from './components/header/Header';
 import Logout from './components/logout';
 import Signup from './components/signup';
+import AddRecipe from './components/addRecipe/AddRecipe';
 
 
 import PrivateRoute from './components/private_route';
@@ -26,6 +27,7 @@ ReactDOM.render(
                 <Route path='/signup' component={Signup} />
                 <PrivateRoute path='/page_one' component={PageOne} />
                 <PrivateRoute path='/page_two' component={PageTwo} />
+                <PrivateRoute path='/add' component={AddRecipe} />
                 <Route path='/logout' component={Logout} />
             </Switch>
         </Router>

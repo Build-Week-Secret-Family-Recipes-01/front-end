@@ -3,7 +3,7 @@ import React from 'react';
 import './RecipeItem.css';
 
 const RecipeItem = (props) => {
-    const { recipe } = props;
+    const { recipe, handleDelete } = props;
 
     return (
         <div className='recipe-container'>
@@ -27,16 +27,19 @@ const RecipeItem = (props) => {
                 <p><strong>Ingredients:</strong></p>
                 <ul>
                     {recipe.ingredients.map((ingredient, index) => {
-                        return <li key={index}>{ingredient}</li>;
+                        return <li key={index}>{ingredient.ingredient_name} {ingredient.quantity}</li>;
                     })}
                 </ul>
 
                 <p><strong>Instructions:</strong></p>
                 <ol>
-                    {recipe.instructions.map((instructions, index) => {
-                        return <li key={index}>{instructions}</li>;
+                    {recipe.steps.map((step, index) => {
+                        return <li key={index}>{step.step_text}</li>;
                     })}
                 </ol>
+                <div>
+                    <button onClick={() => handleDelete(recipe.recipe_id)}>Delete</button>
+                </div>
             </div>
         </div>
     );
