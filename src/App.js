@@ -45,6 +45,23 @@ const App = () => {
       });
   }, []);
 
+  const handleDelete = (recipeId) => {
+    const token = localStorage.getItem("token");
+    axios
+      .delete(`https://secret-family-recipes-01.herokuapp.com/api/recipes/${recipeId}`, {
+        headers: { Authorization: token }
+      })
+      .then(res => {
+        console.log(res);
+        const newState = recipes.filter(item=>(item.recipeId !== recipeId));
+        setRecipes(newState)
+        setSearchTerm(newState)
+        // st = recipis.filter()
+        // setRecipes(st)
+        // setSearchTerm(st)
+      })
+  }
+
   const handleSearchChange = (e) => {
     e.preventDefault();
     const term = e.target.value.toLowerCase();
@@ -74,7 +91,7 @@ const App = () => {
           </div>
           <div className="recipe-wrapper">
             {searchTerm.map((item) => {
-              return <RecipeItem key={item.recipe_id} recipe={item} />;
+              return <RecipeItem key={item.recipe_id} recipe={item} handleDelete={handleDelete} />;
             })}
           </div>
         </div>
