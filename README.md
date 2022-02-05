@@ -63,7 +63,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 ### Deployment
 
-Vercel Deployment: https://recipesfr-lnqgstjyi-team-morgan.vercel.app/
+Vercel Deployment: https://recipesfr.vercel.app/
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
