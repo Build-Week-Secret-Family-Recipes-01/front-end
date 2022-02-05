@@ -44,6 +44,11 @@ const App = () => {
       });
   }, []);
 
+  const handleEdit = (recipeId) => {
+    const existing = recipes.filter(item=>(item.recipe_id === recipeId))
+    push(`/edit/${recipeId}`, {existing: existing[0]})
+  }
+
   const handleDelete = (recipeId) => {
     const token = localStorage.getItem("token");
     axios
@@ -89,7 +94,7 @@ const App = () => {
           </div>
           <div className="recipe-wrapper">
             {searchTerm.map((item) => {
-              return <RecipeItem key={item.recipe_id} recipe={item} handleDelete={handleDelete} />;
+              return <RecipeItem key={item.recipe_id} recipe={item} handleEdit={handleEdit} handleDelete={handleDelete} />;
             })}
           </div>
         </div>

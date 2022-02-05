@@ -7,18 +7,30 @@ import "./AddRecipe.css";
 import useRecipes from "../../hooks/useRecipes";
 
 const AddRecipe = (props) => {
+  console.log(props);
   const { push } = useHistory();
   const [recipes, setRecipes, searchTerm, setSearchTerm] = useRecipes([]);
 
-  const [recipe, setRecipe] = useState({
-    user_id: 1,
-    title: "",
-    source: "",
-    description: "",
-    categories: [], // ["Vegetarian", "Lunch"],
-    steps: [], // { step_number: 1, step_text: "toast your bread" }, ...
-    ingredients: [], // { quantity: "2 slices", ingredient_name: "whole wheat bread" }, ...
-  });
+  // console.log('131313123', props[0])
+
+  const existing = props.location.state.existing;
+  console.log("exiting", existing);
+
+  const initialState = existing
+    ? existing
+    : {
+        user_id: 1,
+        title: "",
+        source: "",
+        description: "",
+        categories: [], // ["Vegetarian", "Lunch"],
+        steps: [], // { step_number: 1, step_text: "toast your bread" }, ...
+        ingredients: [], // { quantity: "2 slices", ingredient_name: "whole wheat bread" }, ...
+      };
+
+  console.log(initialState);
+
+  const [recipe, setRecipe] = useState(initialState);
 
   const [error, setError] = useState("");
 
@@ -36,13 +48,21 @@ const AddRecipe = (props) => {
     const userId = localStorage.getItem("user_id");
     const newRecipeData = { ...recipe, user_id: userId };
 
-    console.log(recipe);
-    axios
-      .post(
-        `https://secret-family-recipes-01.herokuapp.com/api/recipes/`,
-        newRecipeData,
-        { headers: { Authorization: token } }
-      )
+    // console.log(recipe);
+
+    const operation = existing
+      ? axios.put(
+          `https://secret-family-recipes-01.herokuapp.com/api/recipes/${existing.recipe_id}`,
+          newRecipeData,
+          { headers: { Authorization: token } }
+        )
+      : axios.post(
+          `https://secret-family-recipes-01.herokuapp.com/api/recipes/`,
+          newRecipeData,
+          { headers: { Authorization: token } }
+        );
+
+    operation
       .then((res) => {
         console.log(res);
         setRecipes([...recipes, res.data]);
@@ -50,7 +70,7 @@ const AddRecipe = (props) => {
       })
       .catch((err) => {
         console.log(err);
-        setError({errorMessage: err.toString()})
+        setError({ errorMessage: err.toString() });
       });
   };
 
@@ -250,7 +270,9 @@ const AddRecipe = (props) => {
 
             <br />
             <br />
-            <button id="submit">Add Recipe</button>
+            <button id="submit">
+              {existing ? "Update Recipe" : "Add Recipe"}
+            </button>
           </form>
           <p id="error">{error.errorMessage}</p>
         </div>
