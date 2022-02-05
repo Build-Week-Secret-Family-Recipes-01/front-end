@@ -11,9 +11,7 @@ const AddRecipe = (props) => {
   const { push } = useHistory();
   const [recipes, setRecipes, searchTerm, setSearchTerm] = useRecipes([]);
 
-  // console.log('131313123', props[0])
-
-  const existing = props.location.state.existing;
+  const existing = props?.location?.state?.existing ?? null;
   console.log("exiting", existing);
 
   const initialState = existing
@@ -28,18 +26,16 @@ const AddRecipe = (props) => {
         ingredients: [], // { quantity: "2 slices", ingredient_name: "whole wheat bread" }, ...
       };
 
-  console.log(initialState);
-
   const [recipe, setRecipe] = useState(initialState);
-
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    console.log(e);
+    // console.log(e);
     setRecipe({
       ...recipe,
       [e.target.name]: e.target.value,
     });
+    console.log(recipe);
   };
 
   const handleSubmit = (e) => {
@@ -48,7 +44,7 @@ const AddRecipe = (props) => {
     const userId = localStorage.getItem("user_id");
     const newRecipeData = { ...recipe, user_id: userId };
 
-    // console.log(recipe);
+    console.log(recipe);
 
     const operation = existing
       ? axios.put(
