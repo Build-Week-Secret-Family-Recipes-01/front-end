@@ -28,6 +28,7 @@ ReactDOM.render(
                 <PrivateRoute path='/page_one' component={PageOne} />
                 <PrivateRoute path='/page_two' component={PageTwo} />
                 <PrivateRoute path='/add' component={AddRecipe} />
+                <PrivateRoute path='/edit/:id' component={AddRecipe} />
                 <Route path='/logout' component={Logout} />
             </Switch>
         </Router>
